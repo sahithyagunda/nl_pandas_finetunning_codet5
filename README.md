@@ -1,9 +1,9 @@
-CodeT5 Fine-Tuning for Natural Language to Pandas Code Translation
-Overview
+# CodeT5 Fine-Tuning for Natural Language to Pandas Code Translation
+## Overview
 
 This project fine-tunes the Salesforce CodeT5-small model to translate natural language instructions into pandas code snippets. The objective is to enable automatic generation of pandas commands from simple English queries, facilitating data analysis and manipulation tasks.
 
-Project Goals
+## Project Goals
 
 Fine-tune a transformer model (CodeT5) on a custom dataset of natural language and corresponding pandas code.
 
@@ -13,7 +13,7 @@ Evaluate model performance using BLEU score to measure translation quality.
 
 Deploy a pipeline for inference to test and demonstrate model predictions on new inputs.
 
-Setup and Installation
+## Setup and Installation
 
 Environment Requirements
 
@@ -21,7 +21,7 @@ Python 3.8 or higher
 
 GPU support strongly recommended (NVIDIA CUDA-enabled GPU)
 
-Required Libraries
+## Required Libraries
 
 transformers
 
@@ -35,7 +35,7 @@ torch
 
 json (built-in)
 
-Installation
+## Installation
 Install the necessary Python packages using pip:
 
 pip install transformers datasets evaluate accelerate torch
@@ -43,7 +43,7 @@ pip install transformers datasets evaluate accelerate torch
 
 Ensure your GPU drivers and CUDA toolkit are properly installed for GPU acceleration.
 
-Data Preparation
+## Data Preparation
 
 The dataset consists of JSON Lines (.jsonl) formatted records.
 
@@ -59,7 +59,7 @@ This format is designed to fit conversational input style compatible with CodeT5
 
 The dataset is split into training and evaluation subsets with a fixed random seed to ensure reproducibility.
 
-Tokenization and Preprocessing
+## Tokenization and Preprocessing
 
 The CodeT5 tokenizer is used for encoding inputs and targets.
 
@@ -69,13 +69,13 @@ Both inputs and outputs are tokenized with fixed maximum lengths and padded to e
 
 Padding tokens in labels are replaced with -100 so the loss function ignores them during training.
 
-Model and Training
+## Model and Training
 
 Salesforce’s codet5-small model is loaded as the base model.
 
 Fine-tuning is performed using Hugging Face’s Seq2SeqTrainer and Seq2SeqTrainingArguments.
 
-Key training parameters:
+## Key training parameters:
 
 Number of epochs: 6
 
@@ -89,7 +89,7 @@ Evaluation and saving are performed at the end of each epoch.
 
 The DataCollatorForSeq2Seq is used to dynamically pad batches and handle label padding correctly.
 
-Evaluation Metrics
+## Evaluation Metrics
 
 Model output quality is evaluated using the BLEU score metric, a common choice for translation tasks.
 
@@ -97,13 +97,13 @@ Predictions and references are decoded from token IDs before evaluation.
 
 Special care is taken to filter out invalid token IDs that could cause decoding errors.
 
-Inference Pipeline
+## Inference Pipeline
 
 After training, the model and tokenizer are saved for later use.
 
 A text-to-text generation pipeline is created to perform inference on new natural language instructions.
 
-Example inputs:
+## Example inputs:
 
 "translate to pandas: Select columns age and salary and remove rows with missing salary"
 
@@ -111,7 +111,7 @@ Example inputs:
 
 The pipeline generates the corresponding pandas code snippet with beam search decoding.
 
-Challenges and Solutions
+## Challenges and Solutions
 
 Encountered decoding errors due to invalid token IDs and padding token misalignments.
 
@@ -123,7 +123,7 @@ Adjusted generation parameters to avoid conflicts between max_length and max_new
 
 Added explicit task prefixes to improve model understanding and training effectiveness.
 
-Results and Usage
+## Results and Usage
 
 The fine-tuned model generates accurate and syntactically correct pandas code for a range of natural language queries.
 
@@ -131,7 +131,7 @@ This project demonstrates an effective workflow for customizing transformer mode
 
 The resulting model can be integrated into applications for automating data manipulation instructions.
 
-Future Work
+## Future Work
 
 Expand the dataset size and diversity to cover more pandas functions and edge cases.
 
@@ -141,7 +141,7 @@ Implement a user-friendly interface or API for broader accessibility.
 
 Incorporate additional evaluation metrics and human evaluation for quality assessment.
 
-References
+##  References
 
 Salesforce CodeT5 Model
 
